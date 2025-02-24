@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solara: A Framework for Interactive Data Dashboards</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1 { color: #2c3e50; text-align: center; }
+        .container { max-width: 900px; margin: auto; }
+        .chart-container { width: 100%; height: 400px; margin-top: 20px; }
+        .btn { margin: 5px; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Solara: A Framework for Creating Interactive Data Dashboards</h1>
+        
+        <h2>Table of Contents</h2>
+        <ol>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#installation">Installation & Setup</a></li>
+            <li><a href="#features">Key Features & Explanation</a></li>
+            <li><a href="#examples">Code Examples & Illustrations</a></li>
+            <li><a href="#usecases">Practical Use Cases</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+        </ol>
+
+        <h2 id="introduction">Introduction</h2>
+        <h3>What is Solara?</h3>
+        <p>Solara is an open-source Python framework designed to <strong>create interactive dashboards and web applications</strong> effortlessly.</p>
+        
+        <h3>Why Use Solara?</h3>
+        <ul>
+            <li><strong>Easy to Learn:</strong> Uses Python instead of JavaScript.</li>
+            <li><strong>Highly Interactive:</strong> React-style state management.</li>
+            <li><strong>Seamless Integration:</strong> Works with Jupyter, FastAPI, and plotting libraries.</li>
+        </ul>
+
+        <h2 id="installation">Installation & Setup</h2>
+        <pre><code>pip install solara</code></pre>
+        <pre><code>solara run</code></pre>
+
+        <h2 id="features">Key Features & Explanation</h2>
+        <ul>
+            <li>Reactive Components</li>
+            <li>Built-in Widgets</li>
+            <li>Markdown & Plots Support</li>
+        </ul>
+
+        <h2 id="examples">Code Examples & Illustrations</h2>
+        <h3>Example: Simple Interactive Counter</h3>
+        <pre><code>import solara
+
+@solara.component
+def Counter():
+    count = solara.use_state(0)
+    solara.Button("Increase", on_click=lambda: count.set(count.value + 1))
+    solara.Text(f"Current Count: {count.value}")
+
+solara.run(Counter)</code></pre>
+        <img src="https://via.placeholder.com/600x400.png?text=Solara+Counter+Demo" alt="Solara Counter Example">
+
+        <h2 id="usecases">Practical Use Cases</h2>
+        <ul>
+            <li>Data Science Dashboards</li>
+            <li>Real-time Business Analytics</li>
+            <li>Scientific Research Tools</li>
+        </ul>
+        
+        <h2 id="conclusion">Conclusion</h2>
+        <p>Solara simplifies UI development while offering powerful features for data visualization and interactivity.</p>
+
+        <h2>Dataset Comparison</h2>
+        <button class="btn btn-primary" onclick="updateChart('dataset1')">View Dataset 1</button>
+        <button class="btn btn-success" onclick="updateChart('dataset2')">View Dataset 2</button>
+        
+        <div id="chart" class="chart-container"></div>
+    </div>
+
+    <script>
+        function updateChart(dataset) {
+            let xValues = ['Category A', 'Category B', 'Category C', 'Category D'];
+            let yValues = dataset === 'dataset1' ? [10, 15, 13, 17] : [20, 10, 18, 12];
+            let title = dataset === 'dataset1' ? 'Sales Distribution' : 'Customer Engagement';
+
+            let data = [{ x: xValues, y: yValues, type: 'bar', marker: {color: dataset === 'dataset1' ? 'blue' : 'green'} }];
+            let layout = { title: title, xaxis: { title: 'Categories' }, yaxis: { title: 'Values' } };
+
+            Plotly.newPlot('chart', data, layout);
+        }
+        updateChart('dataset1');
+    </script>
+</body>
+</html>

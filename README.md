@@ -1,149 +1,107 @@
-# Solara: A Framework for Creating Interactive Data Dashboards in Python  
+---
+title: "Solara: A Framework for Creating Interactive Data Dashboards in Python"
+---
 
-## Table of Contents  
-1. [Introduction](#introduction)  
-2. [Installation & Setup](#installation--setup)  
-3. [Key Features & Explanation](#key-features--explanation)  
-4. [Interactive Code Examples](#interactive-code-examples)  
-5. [Dataset Comparisons & Illustrations](#dataset-comparisons--illustrations)  
-6. [Practical Use Cases](#practical-use-cases)  
-7. [Conclusion](#conclusion)  
-8. [References & Further Reading](#references--further-reading)  
+# Solara: A Framework for Creating Interactive Data Dashboards in Python
+
+## Table of Contents
+1. [What is Solara?](#what-is-solara)
+2. [Purpose](#purpose)
+3. [Why Use Solara?](#why-use-solara)
+4. [Installation & Setup](#installation--setup)
+5. [Key Features & Explanation](#key-features--explanation)
+6. [Code Examples](#code-examples)
+7. [Screenshots](#screenshots)
+8. [Use Cases](#use-cases)
+9. [Troubleshooting](#troubleshooting)
+10. [Conclusion](#conclusion)
+11. [References & Further Reading](#references--further-reading)
 
 ---
 
-## Introduction  
-### What is Solara?  
-Solara is an open-source Python framework designed to **create interactive dashboards and web applications** effortlessly. It combines **React-like interactivity** with Python's simplicity, making it an ideal tool for data-driven applications.  
+## What is Solara?
+Solara is a powerful framework that allows developers to build interactive data dashboards using Python. It combines the simplicity of Python with the flexibility of React-like components, making it easy to create highly interactive and responsive dashboards.
 
-### Purpose  
-The main goal of Solara is to provide a **Pythonic way** to build highly **interactive and responsive dashboards** without needing JavaScript. It simplifies UI development while integrating well with **Jupyter, FastAPI, and data visualization tools**.  
+## Purpose
+- Provide a simple yet powerful way to build **interactive dashboards**.
+- Leverage **React-style** UI elements in Python.
+- Allow for **easy deployment on GitHub Pages**.
 
-### Why Use Solara?  
-- **Easy to Learn**: Uses Python instead of JavaScript.
-- **Highly Interactive**: React-style state management.
-- **Seamless Integration**: Works with Jupyter, FastAPI, and plotting libraries.
-- **Flexible UI Components**: Sliders, buttons, and dropdowns built-in.
-- **Ideal for Data Scientists**: No frontend expertise needed.  
+## Why Use Solara?
+- **Simple & Pythonic**: No need to learn JavaScript or React.
+- **Component-based UI**: Modular and reusable components.
+- **Easy Deployment**: Works with GitHub Pages & other hosting services.
 
 ---
 
-## Installation & Setup  
-To install Solara, run:  
-```sh
+## Installation & Setup
+### Install Solara
+```bash
 pip install solara
 ```
-After installation, start a development server with:  
-```sh
-solara run
-```
 
----
-
-## Key Features & Explanation  
-- **Reactive Components**: Components update automatically when state changes.  
-- **Integration with Jupyter & FastAPI**: Suitable for data science and web apps.  
-- **Built-in Widgets**: Interactive elements like sliders, dropdowns, and buttons.  
-- **Markdown & Plots Support**: Works with Matplotlib, Plotly, and Altair.  
-
----
-
-## Interactive Code Examples  
-### 1️⃣ Real-time Data Input & Display  
+### Run a Basic Example
 ```python
 import solara
 
-@solara.component
 def Page():
-    name = solara.use_state("World")
-    solara.InputText("Enter your name:", value=name)
-    solara.Button("Greet", on_click=lambda: print(f"Hello, {name.value}!"))
-    solara.Text(f"Hello, {name.value}!")
-
-solara.run(Page)
+    solara.Markdown("## Hello, Solara!")
 ```
-#### **Live Illustration:**
-![Solara Greeting Example](https://via.placeholder.com/600x400.png?text=Solara+Greeting+Demo)
+Save this as `app.py` and run:
+```bash
+solara run app.py
+```
 
-### 2️⃣ Interactive Data Visualization 
+---
+
+## Key Features & Explanation
+### 1. Interactive Components
+```python
+import solara
+
+count, set_count = solara.use_state(0)
+
+def Page():
+    solara.Button("Click me!", on_click=lambda: set_count(count + 1))
+    solara.Markdown(f"**You clicked {count} times!**")
+```
+
+### 2. Data Visualization with Pandas & Matplotlib
 ```python
 import solara
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Sample Data
-data = pd.DataFrame({
-    "Category": ["A", "B", "C", "D"],
-    "Values": [10, 20, 15, 30]
-})
+def plot_chart():
+    df = pd.DataFrame({"Sales": [200, 300, 400], "Marketing Spend": [100, 150, 250]})
+    df.plot(kind='bar')
+    plt.title("Sales vs. Marketing Spend")
+    solara.Figure()
 
-@solara.component
 def Page():
-    fig, ax = plt.subplots()
-    ax.bar(data["Category"], data["Values"], color=['blue', 'green', 'red', 'purple'])
-    solara.FigureMatplotlib(fig)
-
-solara.run(Page)
-```
-#### **Live Illustration:**
-![Solara Bar Chart Example](https://via.placeholder.com/600x400.png?text=Solara+Bar+Chart)
-
----
-
-## Dataset Comparisons & Illustrations  
-### **Comparing Two Datasets (Example: Sales Data vs. Marketing Data)**
-#### **Dataset 1: Sales Data**
-```python
-import pandas as pd
-sales_data = pd.DataFrame({
-    "Month": ["Jan", "Feb", "Mar", "Apr"],
-    "Sales": [1500, 1800, 1700, 2000]
-})
-sales_data
-```
-#### **Dataset 2: Marketing Data**
-```python
-marketing_data = pd.DataFrame({
-    "Month": ["Jan", "Feb", "Mar", "Apr"],
-    "Marketing Spend": [500, 700, 600, 900]
-})
-marketing_data
+    solara.Button("Show Chart", on_click=plot_chart)
 ```
 
-### **Comparison Visualization**
-```python
-import matplotlib.pyplot as plt
-fig, ax = plt.subplots()
-ax.plot(sales_data["Month"], sales_data["Sales"], label="Sales", marker="o")
-ax.plot(marketing_data["Month"], marketing_data["Marketing Spend"], label="Marketing Spend", marker="s")
-ax.legend()
-plt.title("Sales vs Marketing Spend Over Time")
-plt.show()
-```
-#### **Live Illustration:**
-![Dataset Comparison Example](https://via.placeholder.com/600x400.png?text=Sales+vs+Marketing+Graph)
+---
+
+## Screenshots
+### Example Output
+![Dashboard Example](./images/dashboard.png)
 
 ---
 
-## Practical Use Cases  
-- **📊 Data Science Dashboards**: Build interactive data visualizations.  
-- **📈 Real-time Business Analytics**: Monitor KPIs dynamically.  
-- **🧪 Scientific Research Tools**: Make computational experiments interactive.  
-- **🎓 Educational Apps**: Create learning applications with user inputs.  
-- **💡 Prototyping Web Apps**: Quickly test UI concepts with Python.  
+## Use Cases
+- **Business Dashboards**: Track sales, trends, and performance.
+- **Data Science Apps**: Build interactive machine learning models.
+- **Finance & Stock Analysis**: Create live stock market tracking dashboards.
 
 ---
 
-## Conclusion  
-Solara is an excellent framework for **building interactive dashboards**.  
-It simplifies UI development while offering **powerful features** for data visualization and interactivity.
+## Conclusion
+Solara makes it easy to build interactive dashboards **without JavaScript**. With its **React-like** architecture, it's a great choice for data-driven web applications.
 
 ---
 
-## References & Further Reading  
-- [Solara Documentation](https://solara.dev)  
-- [GitHub Repository](#)  
-- [FastAPI](https://fastapi.tiangolo.com/)  
-- [Matplotlib](https://matplotlib.org/)  
+## References & Further Reading
+- [Official Solara Documentation](https://solara.dev/)
 
----

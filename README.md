@@ -1,13 +1,22 @@
+# GitHub Repository Structure for Solara Blog
+
+# 1️⃣ index.md - Your Blog Content
+---
+title: "Solara: A Framework for Creating Interactive Data Dashboards in Python"
+description: "A guide to using Solara for building interactive dashboards with Python, including dataset comparisons and live visualizations."
+---
+
 # Solara: A Framework for Creating Interactive Data Dashboards in Python  
 
 ## Table of Contents  
 1. [Introduction](#introduction)  
 2. [Installation & Setup](#installation--setup)  
 3. [Key Features & Explanation](#key-features--explanation)  
-4. [Code Examples & Illustrations](#code-examples--illustrations)  
-5. [Practical Use Cases](#practical-use-cases)  
-6. [Conclusion](#conclusion)  
-7. [References & Further Reading](#references--further-reading)  
+4. [Interactive Code Examples](#interactive-code-examples)  
+5. [Dataset Comparisons & Illustrations](#dataset-comparisons--illustrations)  
+6. [Practical Use Cases](#practical-use-cases)  
+7. [Conclusion](#conclusion)  
+8. [References & Further Reading](#references--further-reading)  
 
 ---
 
@@ -24,23 +33,6 @@ The main goal of Solara is to provide a **Pythonic way** to build highly **inter
 - **Seamless Integration**: Works with Jupyter, FastAPI, and plotting libraries.
 - **Flexible UI Components**: Sliders, buttons, and dropdowns built-in.
 - **Ideal for Data Scientists**: No frontend expertise needed.  
-
-### Working Example
-#### Example: Simple Interactive Counter
-```python
-import solara
-
-@solara.component
-def Counter():
-    count = solara.use_state(0)
-    solara.Button("Increase", on_click=lambda: count.set(count.value + 1))
-    solara.Text(f"Current Count: {count.value}")
-
-solara.run(Counter)
-```
-
-#### Screenshot: Simple Counter Example
-![Solara Counter Example](https://via.placeholder.com/600x400.png?text=Solara+Counter+Demo)
 
 ---
 
@@ -64,8 +56,8 @@ solara run
 
 ---
 
-## Code Examples & Illustrations  
-### 1️⃣ Basic Example  
+## Interactive Code Examples  
+### 1️⃣ Real-time Data Input & Display  
 ```python
 import solara
 
@@ -78,33 +70,66 @@ def Page():
 
 solara.run(Page)
 ```
-
-#### Screenshot: Name Input and Greeting Example
+#### **Live Illustration:**
 ![Solara Greeting Example](https://via.placeholder.com/600x400.png?text=Solara+Greeting+Demo)
 
-### 2️⃣ Using a Slider to Control a Graph  
+### 2️⃣ Interactive Data Visualization 
 ```python
 import solara
-import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
+
+# Sample Data
+data = pd.DataFrame({
+    "Category": ["A", "B", "C", "D"],
+    "Values": [10, 20, 15, 30]
+})
 
 @solara.component
 def Page():
-    frequency = solara.use_state(5)
-    x = np.linspace(0, 10, 100)
-    y = np.sin(frequency.value * x)
-    
     fig, ax = plt.subplots()
-    ax.plot(x, y)
-    
-    solara.SliderInt("Frequency", 1, 10, value=frequency)
+    ax.bar(data["Category"], data["Values"], color=['blue', 'green', 'red', 'purple'])
     solara.FigureMatplotlib(fig)
 
 solara.run(Page)
 ```
+#### **Live Illustration:**
+![Solara Bar Chart Example](https://via.placeholder.com/600x400.png?text=Solara+Bar+Chart)
 
-#### Screenshot: Interactive Graph Example
-![Solara Graph Example](https://via.placeholder.com/600x400.png?text=Solara+Graph+Demo)
+---
+
+## Dataset Comparisons & Illustrations  
+### **Comparing Two Datasets (Example: Sales Data vs. Marketing Data)**
+#### **Dataset 1: Sales Data**
+```python
+import pandas as pd
+sales_data = pd.DataFrame({
+    "Month": ["Jan", "Feb", "Mar", "Apr"],
+    "Sales": [1500, 1800, 1700, 2000]
+})
+sales_data
+```
+#### **Dataset 2: Marketing Data**
+```python
+marketing_data = pd.DataFrame({
+    "Month": ["Jan", "Feb", "Mar", "Apr"],
+    "Marketing Spend": [500, 700, 600, 900]
+})
+marketing_data
+```
+
+### **Comparison Visualization**
+```python
+import matplotlib.pyplot as plt
+fig, ax = plt.subplots()
+ax.plot(sales_data["Month"], sales_data["Sales"], label="Sales", marker="o")
+ax.plot(marketing_data["Month"], marketing_data["Marketing Spend"], label="Marketing Spend", marker="s")
+ax.legend()
+plt.title("Sales vs Marketing Spend Over Time")
+plt.show()
+```
+#### **Live Illustration:**
+![Dataset Comparison Example](https://via.placeholder.com/600x400.png?text=Sales+vs+Marketing+Graph)
 
 ---
 

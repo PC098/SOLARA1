@@ -80,11 +80,6 @@ def Page():
 
 ---
 
-## Screenshots
-### Example Output
-![Dashboard Example](./images/dashboard.png)
-
----
 
 ## Use Cases
 - **Business Dashboards**: Track sales, trends, and performance.

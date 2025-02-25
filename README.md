@@ -87,12 +87,6 @@ solara.run(Page)
 
 ---
 
-## **Screenshots & Illustrations**  
-### **Solara Dashboard Example**
-![Solara Dashboard](https://raw.githubusercontent.com/username/repo/main/screenshots/solara_dashboard.png)
-
----
-
 ## **Use Cases**  
 - **Data Science Dashboards** – Interactive analytics visualization.  
 - **Real-time Data Monitoring** – Display live data updates.  
